@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology: The Information Engine · The Undercurrent</title>
+<meta name="description" content="An automated, source-disciplined intelligence weekly across economy, geopolitics, technology, science, politics and culture — with explicit chains of effects, scored forecasts and a public track record.">
+<link rel="alternate" type="application/atom+xml" title="The Undercurrent — Weekly" href="/undercurrent/feed.xml">
+<link rel="stylesheet" href="/undercurrent/static/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/undercurrent/">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-name">The Undercurrent</span>
+  </a>
+  <nav class="site-nav">
+    <a href="/undercurrent/weekly/">Weekly</a>
+    <a href="/undercurrent/storylines/">Storylines</a>
+    <a href="/undercurrent/scorecard/">Scorecard</a>
+    <a href="/undercurrent/docs/02-methodology-information-engine/">Method</a>
+    <a class="nav-cta" href="/undercurrent/subscribe/">Subscribe</a>
+  </nav>
+</header>
+
+<main class="content">
+<article class="page">
+  <header class="page-header"><h1>Methodology: The Information Engine</h1></header>
+  <div class="page-body">
+    <h1>Undercurrent — Methodology: The Information Engine</h1>
+<p><em>Version 0.2 — 2026-11-10. This document is the heart of the project and is intended to be published. Every automated run reads it at start.</em></p>
+<hr>
+<h2 id="0.-design-stance" tabindex="-1">0. Design stance</h2>
+<p>The engine is built to behave like a good intelligence analyst rather than a news editor: curious, divergent in search, convergent in judgement, explicit about uncertainty, and accountable for every call it makes. Three commitments shape everything below:</p>
+<ul>
+<li>The <strong>unit of analysis is the claim</strong>, not the article.</li>
+<li><strong>Weight comes from independent origins and track record</strong>, never from repetition or prestige alone.</li>
+<li><strong>Every judgement leaves a trace</strong> that can be scored later.</li>
+</ul>
+<h2 id="1.-the-claim-model" tabindex="-1">1. The claim model</h2>
+<p>Every piece of information the engine handles is decomposed into atomic, verifiable <strong>claims</strong>. A claim record contains:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>Stable identifier (<code>C-YYYYMMDD-nnn</code>)</td>
+</tr>
+<tr>
+<td><code>text</code></td>
+<td>One sentence, verifiable, no interpretation</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>fact</code> · <code>leak</code> · <code>rumor</code> · <code>sentiment</code> · <code>forecast</code> · <code>opinion</code></td>
+</tr>
+<tr>
+<td><code>domains</code></td>
+<td>One or more of the six domains</td>
+</tr>
+<tr>
+<td><code>entities</code></td>
+<td>Countries, companies, assets, people, technologies, institutions</td>
+</tr>
+<tr>
+<td><code>first_seen</code></td>
+<td>Source and date of earliest appearance found</td>
+</tr>
+<tr>
+<td><code>origin</code></td>
+<td>The root source after citation tracing (§3.2)</td>
+</tr>
+<tr>
+<td><code>sources[]</code></td>
+<td>All sources carrying the claim, each with tier and date</td>
+</tr>
+<tr>
+<td><code>independent_origins</code></td>
+<td>Count of mutually independent origins</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>unverified</code> · <code>corroborated</code> · <code>confirmed</code> · <code>disputed</code> · <code>denied</code> · <code>falsified</code> · <code>resolved</code></td>
+</tr>
+<tr>
+<td><code>confidence</code></td>
+<td>0–1 (§3.4)</td>
+</tr>
+<tr>
+<td><code>materiality</code></td>
+<td>0–1 (§6.1)</td>
+</tr>
+<tr>
+<td><code>horizon</code></td>
+<td>When effects would materialise: <code>days</code> · <code>weeks</code> · <code>months</code> · <code>years</code></td>
+</tr>
+<tr>
+<td><code>resolution</code></td>
+<td>For leaks/rumors/forecasts: criterion + expected date</td>
+</tr>
+<tr>
+<td><code>storyline</code></td>
+<td>Link to the ongoing narrative it belongs to (§7)</td>
+</tr>
+</tbody>
+</table>
+<p>Types are not interchangeable. A <code>sentiment</code> claim (“retail forums turned sharply negative on X”) is a measurement of a crowd, never evidence about X itself. An <code>opinion</code> is attributed and never promoted to fact. A <code>forecast</code> always carries a probability.</p>
+<h2 id="2.-source-registry" tabindex="-1">2. Source registry</h2>
+<h3 id="2.1-tiers" tabindex="-1">2.1 Tiers</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P — Primary</strong></td>
+<td>Original documents and data</td>
+<td>Regulatory filings, central bank releases, court dockets, official statistics, patents, company statements, earnings calls, legislation texts, scientific papers, job postings, shipping and customs data</td>
+</tr>
+<tr>
+<td><strong>A — Authoritative</strong></td>
+<td>Established general and financial media with editorial standards</td>
+<td>Wire services, major dailies, major financial press, public broadcasters</td>
+</tr>
+<tr>
+<td><strong>S — Specialist</strong></td>
+<td>Domain media and expert publications</td>
+<td>Trade journals, sector newsletters, think tanks, academic blogs, research houses</td>
+</tr>
+<tr>
+<td><strong>U — Underground</strong></td>
+<td>Communities and individuals where expertise and leaks surface first</td>
+<td>Technical forums, subreddits, Hacker News, Discord/Telegram channels, Substack writers, GitHub activity, supply-chain insiders, hobbyist teardown communities, regional-language local press</td>
+</tr>
+</tbody>
+</table>
+<p>The tiers describe <em>provenance</em>, not <em>value</em>. Tier U is where the engine expects to find the earliest signals; it is also where manipulation and noise are highest. The registry exists to tell the two apart over time.</p>
+<h3 id="2.2-attributes-(per-source%2C-per-domain-where-applicable)" tabindex="-1">2.2 Attributes (per source, per domain where applicable)</h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Scale</th>
+<th>Initial prior</th>
+<th>How it moves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Reliability <code>R</code></strong></td>
+<td>0–1</td>
+<td>P 0.90 · A 0.75 · S 0.65 · U 0.35</td>
+<td>±0.05 per claim resolved true/false, bounded [0.05, 0.98]; decays toward tier prior at 2% per month without data</td>
+</tr>
+<tr>
+<td><strong>Latency <code>L</code></strong></td>
+<td>median days ahead of first Tier A coverage</td>
+<td>0</td>
+<td>Measured on each claim later confirmed by Tier A; positive means the source leads</td>
+</tr>
+<tr>
+<td><strong>Domain competence</strong></td>
+<td>per domain, 0–1</td>
+<td>tier prior</td>
+<td>Same update rule, scoped per domain</td>
+</tr>
+<tr>
+<td><strong>Agenda / incentives</strong></td>
+<td>free text + flag</td>
+<td>—</td>
+<td>Set on registration; reviewed monthly (ownership, advertising, engagement incentives, political alignment, financial positions)</td>
+</tr>
+<tr>
+<td><strong>Independence cluster</strong></td>
+<td>cluster id</td>
+<td>—</td>
+<td>Sources that share ownership, a common feed or a habit of relaying each other without attribution belong to one cluster</td>
+</tr>
+</tbody>
+</table>
+<p>A source with low <code>R</code> and high <code>L</code> is a valuable <strong>early-warning</strong> source: its claims enter the Rumor Ledger quickly but are published only as weak signals until corroborated.</p>
+<h3 id="2.3-registration-and-growth" tabindex="-1">2.3 Registration and growth</h3>
+<p>The registry starts with a seed list per domain and tier and grows by <strong>discovery</strong>: every run records sources encountered that are not in the registry, with a provisional tier. A source is promoted from provisional to registered once it has carried at least three claims whose outcome was later resolved. Tier U discovery is deliberate: each run reserves a share of its search budget for exploring communities adjacent to the week’s storylines.</p>
+<h2 id="3.-weighting-and-corroboration" tabindex="-1">3. Weighting and corroboration</h2>
+<h3 id="3.1-the-core-rule" tabindex="-1">3.1 The core rule</h3>
+<blockquote>
+<p>Confidence in a claim grows with the number of <strong>independent origins</strong> and with the <strong>reliability of those origins</strong>, not with the number of outlets repeating it.</p>
+</blockquote>
+<h3 id="3.2-citation-tracing" tabindex="-1">3.2 Citation tracing</h3>
+<p>Before counting sources, the engine traces each report of a claim to its origin: who said it first, and did later outlets add independent confirmation or merely relay it? A relay is identified by explicit attribution (“according to X”), by near-identical wording or timing, or by membership in the same independence cluster. Relays are recorded in <code>sources[]</code> but contribute nothing to <code>independent_origins</code>.</p>
+<h3 id="3.3-evidence-hierarchy" tabindex="-1">3.3 Evidence hierarchy</h3>
+<ol>
+<li>A <strong>primary document</strong> confirming the claim → status <code>confirmed</code>, confidence ≥ 0.9 regardless of other sources.</li>
+<li>Two or more independent Tier A/S origins with consistent detail → <code>corroborated</code>.</li>
+<li>One Tier A/S origin, or several Tier U origins from different clusters → <code>corroborated (weak)</code>.</li>
+<li>One Tier U origin → <code>unverified</code>; enters the Rumor Ledger.</li>
+</ol>
+<p>Official <strong>denials</strong> move the status to <code>denied</code> but do not falsify: the denial is itself a claim with its own origin reliability. Falsification requires evidence incompatible with the claim.</p>
+<h3 id="3.4-confidence-computation-(indicative)" tabindex="-1">3.4 Confidence computation (indicative)</h3>
+<p>Start from the reliability of the best origin. Add diminishing increments for each additional independent origin (second origin +0.10, third +0.05, subsequent +0.02), weighted by their reliability. Subtract for: internal inconsistency between versions (−0.10), active denial from a credible primary party (−0.15), presence of manipulation red flags (−0.10 to −0.30). Clamp to [0.02, 0.98]. The number is published with its reasoning, never alone.</p>
+<h3 id="3.5-manipulation-red-flags" tabindex="-1">3.5 Manipulation red flags</h3>
+<ul>
+<li>Anonymous sourcing from an account or outlet with no track record.</li>
+<li>Coordinated timing across unrelated accounts; copy-paste phrasing.</li>
+<li>Claims aligned with a visible financial position (pump, short campaign) or with engagement incentives.</li>
+<li>Precision without provenance (“exactly 40% cut”) in a domain where such precision is implausible.</li>
+<li>Screenshots or documents without metadata and without a second holder.</li>
+</ul>
+<p>Flags do not block publication; they lower confidence and are stated in the notes.</p>
+<h2 id="4.-the-underground-radar" tabindex="-1">4. The underground radar</h2>
+<p>This is the engine’s distinctive capability. The premise: material information often surfaces first in sub-threshold spaces — technical forums, supply-chain chatter, regulatory dockets, hiring patterns, code repositories, hobbyist communities — mixed with error and manipulation. The radar’s job is to <strong>find it early and publish it responsibly</strong>.</p>
+<h3 id="4.1-detection-methods" tabindex="-1">4.1 Detection methods</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>What it looks for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Novelty</strong></td>
+<td>New entities, terms, part numbers, project names, drug codes, bill numbers appearing in expert communities before mainstream</td>
+</tr>
+<tr>
+<td><strong>Velocity</strong></td>
+<td>Sudden growth in discussion volume on a narrow topic within a competent community</td>
+</tr>
+<tr>
+<td><strong>Expert density</strong></td>
+<td>Signals from communities where verified practitioners are over-represented (engineers, clinicians, logistics operators, lawyers)</td>
+</tr>
+<tr>
+<td><strong>Peripheral evidence</strong></td>
+<td>Job postings, patents, procurement notices, lobbying registers, customs data, GitHub commits, app teardowns, local press in the relevant language</td>
+</tr>
+<tr>
+<td><strong>Cross-community spread</strong></td>
+<td>The same claim emerging independently in two unrelated communities</td>
+</tr>
+<tr>
+<td><strong>Silence</strong></td>
+<td>Expected announcements that do not occur; sudden deletions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4.2-the-rumor-ledger" tabindex="-1">4.2 The Rumor Ledger</h3>
+<p>Every detected weak signal is recorded with: claim, origin, detection method, domain, entities, estimated probability of being substantially true, <strong>resolution criterion</strong>, expected resolution date, and the market or societal linkage if true.</p>
+<h3 id="4.3-publication-rule" tabindex="-1">4.3 Publication rule</h3>
+<p>Weak signals are published <strong>only</strong> in the dedicated <em>Undercurrent</em> section of each report, each with its status, probability and what to watch. They never appear in the factual narrative of the domain sections. When a signal is later confirmed, the report says so and credits the lead time; when falsified, the report says so too.</p>
+<h3 id="4.4-learning-loop" tabindex="-1">4.4 Learning loop</h3>
+<p>Each resolution updates the origin’s <code>R</code> and <code>L</code> and the detection method’s hit rate. The Monthly reviews the Rumor Ledger: hit rate by method, by community, by domain; lead time distribution; false-positive patterns. Over time the radar concentrates on the communities that have actually led.</p>
+<h2 id="5.-chains-of-effects" tabindex="-1">5. Chains of effects</h2>
+<p>The engine models interconnections as explicit causal chains, not as narrative suggestions.</p>
+<h3 id="5.1-structure" tabindex="-1">5.1 Structure</h3>
+<p>A chain is a sequence of nodes (events or states) joined by edges, each edge specifying:</p>
+<ul>
+<li><strong>Mechanism</strong> — how A produces B (price, policy, logistics, substitution, sentiment, regulation, technology, demographics).</li>
+<li><strong>Hop confidence</strong> — 0–1 for this edge alone.</li>
+<li><strong>Horizon</strong> — expected lag.</li>
+<li><strong>Granularity</strong> at the end node — <code>market</code> · <code>sector</code> · <code>asset class</code> · <code>single name</code>.</li>
+<li><strong>Falsifier</strong> — what observation would break this hop.</li>
+</ul>
+<h3 id="5.2-decay" tabindex="-1">5.2 Decay</h3>
+<p>Chain confidence is the product of hop confidences. Absent specific evidence, each hop beyond the first carries a default multiplier of 0.7; mechanisms with strong historical regularity (e.g., energy price → fertiliser cost) may use 0.85; speculative mechanisms use 0.5. Reports display at most three hops; anything deeper is a research note, not a published chain.</p>
+<h3 id="5.3-synchronous-and-asynchronous-links" tabindex="-1">5.3 Synchronous and asynchronous links</h3>
+<ul>
+<li><strong>Synchronous</strong>: events of the same week that interact (a sanction and a shipping disruption compounding).</li>
+<li><strong>Asynchronous</strong>: a current event activating a latent condition recorded earlier in a storyline (a drought recorded in spring becoming a harvest shortfall in autumn). Storylines (§7) are what make asynchronous detection possible.</li>
+</ul>
+<h3 id="5.4-presentation" tabindex="-1">5.4 Presentation</h3>
+<p>Chains are published in a fixed format: <code>A → B → C</code>, one line per hop with mechanism, confidence and horizon, followed by the end-node implication at its stated granularity and the falsifier. Second- and third-order nodes are always labelled as hypotheses.</p>
+<h2 id="6.-materiality-and-dynamic-relevance" tabindex="-1">6. Materiality and dynamic relevance</h2>
+<h3 id="6.1-materiality-of-a-claim" tabindex="-1">6.1 Materiality of a claim</h3>
+<p><code>materiality = impact × probability × breadth × proximity</code></p>
+<ul>
+<li><strong>Impact</strong>: size of consequence if true; market linkage (potential repricing, capital flows, policy shifts) weighs most, societal consequence second.</li>
+<li><strong>Probability</strong>: the claim’s confidence.</li>
+<li><strong>Breadth</strong>: how many domains, regions or asset classes it touches.</li>
+<li><strong>Proximity</strong>: nearer horizons weigh more for the Weekly; the Monthly compensates for long horizons.</li>
+</ul>
+<h3 id="6.2-the-relevance-register" tabindex="-1">6.2 The Relevance Register</h3>
+<p>Depth of treatment per domain and per topic is governed by a register of weights.</p>
+<p><strong>Domain weights</strong> (set by the owner as quotas, 8 / 6 / 5 / 4 / 3 / 2 out of 28; sum = 1). A quota governs both the depth of research in the sweep and the space given to the section in the report:</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Quota</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Economy &amp; Markets</td>
+<td>8</td>
+<td>0.29</td>
+</tr>
+<tr>
+<td>Technology</td>
+<td>6</td>
+<td>0.21</td>
+</tr>
+<tr>
+<td>Geopolitics</td>
+<td>5</td>
+<td>0.18</td>
+</tr>
+<tr>
+<td>Science, Medicine &amp; Ecology</td>
+<td>4</td>
+<td>0.14</td>
+</tr>
+<tr>
+<td>National politics</td>
+<td>3</td>
+<td>0.11</td>
+</tr>
+<tr>
+<td>Culture &amp; Sport</td>
+<td>2</td>
+<td>0.07</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Topic weights</strong> inside each domain are dynamic:</p>
+<ul>
+<li><strong>Boosted</strong> when a topic produces verified effects (price moves, policy changes, mainstream pick-up of a signal first flagged here).</li>
+<li><strong>Boosted</strong> by market linkage declared in chains.</li>
+<li><strong>Decayed</strong> with a half-life of six weeks when no consequences materialise.</li>
+<li><strong>Floored</strong> so that no high-profile domain disappears from the Weekly.</li>
+</ul>
+<h3 id="6.3-ex-post-effect-review" tabindex="-1">6.3 Ex-post effect review</h3>
+<p>Every month, for each item published with materiality ≥ 0.6: did a measurable effect occur within the stated horizon? Measured by market data, policy events or mainstream coverage. Results adjust topic weights and are reported in the Monthly’s <em>Verified effects</em> section. Domain weights themselves are revised quarterly, by the owner, on the basis of this review.</p>
+<h2 id="7.-storylines" tabindex="-1">7. Storylines</h2>
+<p>A storyline is a persistent record of an unfolding situation (a conflict, a regulatory process, a technology race, a commodity cycle). It holds: summary, key claims, open questions, active chains, forecasts, last update. Storylines give the engine memory across runs, enable asynchronous chain detection, and prevent each issue from re-explaining context. A storyline is closed when inactive for eight weeks and archived with its outcome.</p>
+<h2 id="8.-forecasting-and-calibration" tabindex="-1">8. Forecasting and calibration</h2>
+<h3 id="8.1-rules-for-a-publishable-forecast" tabindex="-1">8.1 Rules for a publishable forecast</h3>
+<p>Every forecast states: the event, the probability (as a number), the resolution date, the resolution criterion (observable, unambiguous), and the reasoning in two or three sentences. Probability words are standardised:</p>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>remote</td>
+<td>&lt; 10%</td>
+</tr>
+<tr>
+<td>unlikely</td>
+<td>10–30%</td>
+</tr>
+<tr>
+<td>uncertain</td>
+<td>30–50%</td>
+</tr>
+<tr>
+<td>plausible</td>
+<td>50–70%</td>
+</tr>
+<tr>
+<td>likely</td>
+<td>70–90%</td>
+</tr>
+<tr>
+<td>near-certain</td>
+<td>&gt; 90%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8.2-the-forecast-ledger" tabindex="-1">8.2 The Forecast Ledger</h3>
+<p>All forecasts are logged, with their origin (engine, or a source’s forecast adopted by the engine), and resolved on their dates. Scoring uses the <strong>Brier score</strong>; the Monthly publishes calibration by domain and by horizon, and a reliability table (stated probability vs observed frequency).</p>
+<h3 id="8.3-revision-discipline" tabindex="-1">8.3 Revision discipline</h3>
+<p>Forecasts may be updated between issues; each update is logged with its trigger. Silent revision is forbidden: the report shows the previous value and the new one.</p>
+<h2 id="9.-operational-hypotheses-and-recommendations" tabindex="-1">9. Operational hypotheses and recommendations</h2>
+<p>Recommendations are published as <strong>operational hypotheses</strong>, in two places: at the end of the relevant section (short) and in a dedicated summary section (structured). Each carries:</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thesis</td>
+<td>One sentence</td>
+</tr>
+<tr>
+<td>Granularity</td>
+<td><code>market</code> · <code>sector</code> · <code>asset class</code> · <code>single name</code></td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>positioning or action implied (overweight / underweight / hedge / watch / avoid / accumulate / reduce)</td>
+</tr>
+<tr>
+<td>Horizon</td>
+<td>weeks · months · years</td>
+</tr>
+<tr>
+<td>Confidence</td>
+<td>0–1 with the word from §8.1</td>
+</tr>
+<tr>
+<td>Invalidation trigger</td>
+<td>The observation that would retire the hypothesis</td>
+</tr>
+<tr>
+<td>What to watch</td>
+<td>Upcoming data, events, dates</td>
+</tr>
+</tbody>
+</table>
+<p>Rules: hypotheses derive from published claims and chains, never from unpublished reasoning; they are identical for all readers (equal access); they are tracked in the ledger and reviewed with the same discipline as forecasts; a standing disclaimer states that they are general analysis, not personalised advice.</p>
+<h2 id="10.-quality-assurance" tabindex="-1">10. Quality assurance</h2>
+<p>A <strong>second, independent pass</strong> — a separate Claude instance that has not produced the draft — checks every issue before publication:</p>
+<ol>
+<li><strong>Citation integrity</strong>: every numbered note resolves to a real, reachable source, dated, that actually supports the sentence it is attached to.</li>
+<li><strong>No orphan facts</strong>: no factual sentence without a note.</li>
+<li><strong>Type discipline</strong>: rumors, sentiment, opinions and forecasts are labelled and appear in their proper sections.</li>
+<li><strong>Uncertainty language</strong>: probability words match the stated numbers; no unqualified predictions.</li>
+<li><strong>Chain format</strong>: every chain has mechanisms, hop confidences, horizon, granularity, falsifier.</li>
+<li><strong>Forecast and hypothesis completeness</strong>: all fields present; ledger entries created.</li>
+<li><strong>Conflict disclosure</strong>: where sources disagree, the note states both positions and the engine’s weighting.</li>
+<li><strong>Copyright</strong>: paraphrase by default; quotations rare and short; no reproduction of articles.</li>
+<li><strong>Tone</strong>: analytic, plain, no hype, no partisan framing; political topics treated even-handedly.</li>
+<li><strong>Structure and length</strong> within specification.</li>
+</ol>
+<p>Failures are returned to the drafting pass with the failing items. An issue that cannot pass is published late with a note, never published unchecked.</p>
+<h2 id="11.-notes-and-citations-format" tabindex="-1">11. Notes and citations format</h2>
+<p>Notes are numbered consecutively within each section and placed at the end of that section:</p>
+<p><code>[n] Source name, Tier, date — status of the claim (confirmed / corroborated / unverified / disputed). Conflict or caveat if any.</code></p>
+<p>Where sources conflict, one note carries both positions and the reason for the weighting.</p>
+<h2 id="12.-ethics-and-limits" tabindex="-1">12. Ethics and limits</h2>
+<ul>
+<li>Political and geopolitical topics are reported from multiple perspectives; the engine describes positions and consequences, it does not endorse.</li>
+<li>Health and science claims follow the evidence hierarchy strictly; preprints and press releases are labelled as such.</li>
+<li>Market-moving rumors about individuals are not published without corroboration.</li>
+<li>The engine states what it could not verify rather than omitting it silently.</li>
+</ul>
+
+  </div>
+</article>
+
+</main>
+
+<footer class="site-footer">
+  <p class="disclaimer">Undercurrent is independent analysis for general information. Operational hypotheses express the authors&#39; reading of public information at the date of publication, with the stated probabilities and invalidation triggers; they are not personalised investment, legal or medical advice and do not consider any reader&#39;s circumstances. Sources, methodology and the full record of past calls are public.</p>
+  <p class="meta">
+    <a href="/undercurrent/docs/02-methodology-information-engine/">Methodology</a> ·
+    <a href="/undercurrent/scorecard/">Scorecard</a> ·
+    <a href="/undercurrent/subscribe/#feed">Feed</a>
+  </p>
+</footer>
+</body>
+</html>

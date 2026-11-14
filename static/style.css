@@ -1,0 +1,118 @@
+/* Undercurrent — site styles. Restrained editorial design: facts fast, thinking slow. */
+:root {
+  --bg: #fbfaf7;
+  --fg: #1b1f23;
+  --muted: #5b6470;
+  --rule: #e3dfd6;
+  --accent: #0f5f6b;      /* deep teal: the undercurrent */
+  --accent-soft: #d8ebee;
+  --warn: #8a5a00;
+  --warn-soft: #f5e9cc;
+  --bad: #8c2f2f;
+  --bad-soft: #f3dcdc;
+  --code-bg: #f1efe9;
+  --max: 46rem;
+  --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171a;
+    --fg: #e8e6e1;
+    --muted: #a3aab3;
+    --rule: #2b3137;
+    --accent: #7fc4cf;
+    --accent-soft: #15333a;
+    --warn: #e2b35a;
+    --warn-soft: #3a2e12;
+    --bad: #e08a8a;
+    --bad-soft: #3b1d1d;
+    --code-bg: #1e2327;
+  }
+}
+* { box-sizing: border-box; }
+html { font-size: 17px; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--sans); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, pre { font-family: var(--mono); font-size: 0.9em; }
+code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 3px; }
+pre { background: var(--code-bg); padding: 1rem; overflow-x: auto; border-radius: 4px; }
+pre code { background: none; padding: 0; }
+
+.site-header {
+  max-width: var(--max); margin: 0 auto; padding: 1.5rem 1.25rem 1rem;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  border-bottom: 1px solid var(--rule);
+}
+.brand { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--fg); }
+.brand:hover { text-decoration: none; }
+.brand-mark {
+  width: 1.1rem; height: 1.1rem; border-radius: 50%;
+  background: linear-gradient(180deg, transparent 0 45%, var(--accent) 45% 100%);
+  border: 2px solid var(--accent);
+}
+.brand-name { font-family: var(--serif); font-size: 1.35rem; letter-spacing: 0.01em; }
+.site-nav { display: flex; gap: 1.1rem; font-size: 0.95rem; }
+.site-nav a { color: var(--muted); }
+.site-nav a:hover { color: var(--accent); }
+.nav-cta { color: var(--accent) !important; font-weight: 600; }
+
+main.content, main.wide { max-width: var(--max); margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+main.wide { max-width: 64rem; }
+
+h1, h2, h3 { font-family: var(--serif); line-height: 1.2; font-weight: 600; letter-spacing: -0.005em; }
+h1 { font-size: 2.1rem; margin: 0.4rem 0 0.8rem; }
+h2 { font-size: 1.45rem; margin: 2.4rem 0 0.8rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); }
+h3 { font-size: 1.15rem; margin: 1.6rem 0 0.5rem; }
+h2 a, h3 a { color: inherit; }
+p, ul, ol { margin: 0 0 1rem; }
+blockquote { margin: 1rem 0; padding: 0.2rem 0 0.2rem 1rem; border-left: 3px solid var(--accent); color: var(--muted); }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2rem 0; }
+
+.kicker { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; color: var(--muted); margin: 0; }
+.report-meta, .meta { color: var(--muted); font-size: 0.92rem; }
+.badge { display: inline-block; font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: 999px; margin-left: 0.4rem; vertical-align: middle; }
+.badge-passed { background: var(--accent-soft); color: var(--accent); }
+.badge-passed_with_removals { background: var(--warn-soft); color: var(--warn); }
+.badge-pending { background: var(--bad-soft); color: var(--bad); }
+
+table { border-collapse: collapse; width: 100%; margin: 1rem 0 1.5rem; font-size: 0.93rem; display: block; overflow-x: auto; }
+th, td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+.report-body p + p { text-indent: 0; }
+.report-body strong:first-child { color: var(--accent); }
+.report-footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.85rem; }
+
+.issue-list { list-style: none; padding: 0; margin: 0; }
+.issue-list li { padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+.issue-list .issue-title { font-family: var(--serif); font-size: 1.25rem; }
+.issue-list .issue-excerpt { color: var(--muted); margin: 0.3rem 0 0; font-size: 0.95rem; }
+
+.hero { padding: 1rem 0 2rem; }
+.hero h1 { font-size: 2.6rem; }
+.hero .lede { font-size: 1.2rem; color: var(--muted); max-width: 38rem; }
+.pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; margin: 1.5rem 0 2.5rem; }
+.pillar { border: 1px solid var(--rule); border-radius: 6px; padding: 1rem 1.1rem; background: color-mix(in srgb, var(--bg) 92%, var(--accent) 8%); }
+.pillar h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
+.pillar p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 0.8rem; margin: 1rem 0 2rem; }
+.stat { border: 1px solid var(--rule); border-radius: 6px; padding: 0.8rem 1rem; }
+.stat .n { font-family: var(--serif); font-size: 1.8rem; line-height: 1; }
+.stat .l { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+
+.search { width: 100%; padding: 0.6rem 0.8rem; font: inherit; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); color: var(--fg); margin: 0.5rem 0 1rem; }
+.empty { color: var(--muted); font-style: italic; }
+
+.subscribe-form input[type=email] { width: 100%; max-width: 24rem; padding: 0.6rem 0.8rem; font: inherit; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); color: var(--fg); }
+.subscribe-form button { padding: 0.6rem 1rem; font: inherit; font-weight: 600; border: 0; border-radius: 6px; background: var(--accent); color: #fff; cursor: pointer; margin-top: 0.6rem; }
+
+.site-footer { max-width: var(--max); margin: 0 auto; padding: 2rem 1.25rem 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.85rem; }
+.site-footer .disclaimer { font-size: 0.82rem; }
